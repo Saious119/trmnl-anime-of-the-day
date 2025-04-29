@@ -6,7 +6,7 @@ var query = `query Page($season: MediaSeason, $seasonYear: Int, $type: MediaType
     media(season: $season, seasonYear: $seasonYear, type: $type, isAdult: $isAdult) {
       averageScore
       coverImage {
-        medium
+        extraLarge
       }
       episodes
       endDate {
