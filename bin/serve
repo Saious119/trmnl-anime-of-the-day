@@ -1,0 +1,4 @@
+#! /bin/bash
+
+docker pull schrockwell/trmnlp
+docker run -p 4567:4567 -v .:/plugin schrockwell/trmnlp

@@ -1,0 +1,2 @@
+strategy = "polling"
+url = "http://localhost:3000/test"

@@ -1,0 +1,37 @@
+<div class="layout">
+    <div class="flex flex--col">
+        <div class="title">
+            <div class="flex flex--col">
+                <div class="en-title">
+                    {{data.Media.title.english}}
+                </div>
+                <div class="jp-title">
+                    {{ data.Media.title.native }}
+                </div>
+            </div>
+        </div>
+        <div class="flex flex--row">
+            <div class="flex flex--col">
+                <div class="flex flex--col">
+                    <div class="flex flex--row">
+                        <span class="text--bold" style="font-size:32px;">Rating:</span>
+                        <span class="text--bold" style="font-size:32px;">{{ {data.Media.averageScore }}%</span>
+                    </div>
+                    <div class="flex flex--row">
+                        <span class="text--bold"  style="font-size:24px;">Run:</span>
+                        <span class="text--bold" style="font-size:24px;"> {{data.Media.startDate.month}}/{{ data.Media.startDate.year }} - {{data.Media.endDate.month}}/{{ data.Media.endDate.year }}</span>
+                    </div>
+                </div>
+                <div>
+                    <span class="text--bold" style="font-size:24px;">Number of Episodes:</span>
+                    <span class="text--bold" style="font-size:24px;"> {{data.Media.episodes}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="title_bar">
+    <span class="title">Anilist</span>
+    <span class="instance">Anime of the Day</span>
+</div>
