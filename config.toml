@@ -1,2 +1,2 @@
 strategy = "polling"
-url = "http://localhost:3000/test"
+url = "http://localhost:3000/data"

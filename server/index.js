@@ -11,10 +11,12 @@ var query = `query Page($season: MediaSeason, $seasonYear: Int, $type: MediaType
       episodes
       endDate {
         year
+        month
       }
       genres
       startDate {
         year
+        month
       }
       studios {
         nodes {
@@ -69,13 +71,14 @@ async function fetchAnimeData(query, variables) {
     const data = await response.json();
 
     if (response.ok) {
+      console.log("Data fetched successfully:"); // Log the fetched data
       return data; // Return the JSON response
     } else {
-      console.error("Error fetching data:", data);
+      console.log("Error fetching data:", data);
       throw new Error("Failed to fetch data");
     }
   } catch (error) {
-    console.error("Fetch error:", error);
+    console.log("Fetch error:", error);
     throw error;
   }
 }
@@ -92,12 +95,12 @@ app.get("/data", async (req, res) => {
     variables.season = randomSeason;
     variables.page = 1; // Reset page to 1 for each new request
 
-    console.log("Fetching data for season:", randomSeason, "year:", randomYear);
     console.log("Query variables:", variables);
 
     try {
       const result = await fetchAnimeData(query, variables); // Use the new function
       if (result.data.Page.pageInfo.hasNextPage) {
+        console.log("Fetching additional pages...");
         while (result.data.Page.pageInfo.hasNextPage) {
           variables.page += 1; // Increment the page number
           const nextPageResult = await fetchAnimeData(query, variables); // Fetch the next page
@@ -105,12 +108,12 @@ app.get("/data", async (req, res) => {
           result.data.Page.pageInfo = nextPageResult.data.Page.pageInfo; // Update pageInfo with the new data
         }
       }
-      console.log(result.Page.media.length); // Log the length of the result
       // Select a random media entry from the result
       const mediaArray = result.data.Page.media;
       const randomMedia =
         mediaArray[Math.floor(Math.random() * mediaArray.length)];
       animeOfTheDay = randomMedia; // Store the selected media in a variable
+      console.log(randomMedia); // Log the selected anime
       res.json(randomMedia); // Send the result back to the client
     } catch (error) {
       res.status(500).json({ error: "An error occurred" });

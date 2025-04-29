@@ -3,10 +3,10 @@
         <div class="title">
             <div class="flex flex--col">
                 <div class="en-title">
-                    {{data.Media.title.english}}
+                    {{ title.english}}
                 </div>
                 <div class="jp-title">
-                    {{ data.Media.title.native }}
+                    {{ title.native }}
                 </div>
             </div>
         </div>
@@ -15,16 +15,16 @@
                 <div class="flex flex--col">
                     <div class="flex flex--row">
                         <span class="text--bold" style="font-size:32px;">Rating:</span>
-                        <span class="text--bold" style="font-size:32px;">{{ {data.Media.averageScore }}%</span>
+                        <span class="text--bold" style="font-size:32px;">{{ averageScore }}%</span>
                     </div>
                     <div class="flex flex--row">
                         <span class="text--bold"  style="font-size:24px;">Run:</span>
-                        <span class="text--bold" style="font-size:24px;"> {{data.Media.startDate.month}}/{{ data.Media.startDate.year }} - {{data.Media.endDate.month}}/{{ data.Media.endDate.year }}</span>
+                        <span class="text--bold" style="font-size:24px;"> {{startDate.month}}/{{ startDate.year }} - {{endDate.month}}/{{ endDate.year }}</span>
                     </div>
                 </div>
                 <div>
                     <span class="text--bold" style="font-size:24px;">Number of Episodes:</span>
-                    <span class="text--bold" style="font-size:24px;"> {{data.Media.episodes}}</span>
+                    <span class="text--bold" style="font-size:24px;"> {{episodes}}</span>
                 </div>
             </div>
         </div>

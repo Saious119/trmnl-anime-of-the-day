@@ -1,41 +1,41 @@
 <div class="layout">
     <div class="flex flex--col">
         <div class="title" style="font-size:32px;">
-            {{data.Media.title.english}} - {{ data.Media.title.native }}
+            {{ title.english}} - {{ title.native }}
         </div>
         <div class="flex flex--row">
             <div class="flex flex--col">
-                <img class="image-dither h--80" src="{{data.Media.coverImage.medium}}" alt="{{{data.Media.title.english}}"/>
+                <img class="image-dither h--80" src="{{ coverImage.medium}}" alt="{{{ title.english}}"/>
             </div>
             <div class="flex flex--col">
                 <div class="flex flex--col">
                     <div class="flex flex--row">
                         <span class="text--bold" style="font-size:32px;">Rating:</span>
-                        <span class="text--bold" style="font-size:32px;">{{ {data.Media.averageScore }}%</span>
+                        <span class="text--bold" style="font-size:32px;">{{ averageScore }}%</span>
                     </div>
                     <div class="flex flex--row">
                         <span class="text--bold"  style="font-size:24px;">Run:</span>
-                        <span class="text--bold" style="font-size:24px;"> {{data.Media.startDate.month}}/{{ data.Media.startDate.year }} - {{data.Media.endDate.month}}/{{ data.Media.endDate.year }}</span>
+                        <span class="text--bold" style="font-size:24px;"> {{ startDate.month }}/{{ startDate.year }} - {{ endDate.month }}/{{  endDate.year }}</span>
                     </div>
                 </div>
                 <div class="genreList">
                     Genres:
-                    {% for genre in data.Media.genres %}
+                    {% for genre in  genres %}
                         <span class="tag">{{ genre }}{% unless forloop.last %}, {% endunless %}</span>
                     {% endfor %}
                 </div>
                 <div class="description">
-                    <p class="text--center clamp--8" style="word-break: keep-all;">{{{data.Media.description}}</p>
+                    <p class="text--center clamp--8" style="word-break: keep-all;">{{ description}}</p>
                 </div>
                 <div class="studios">
                     Studios: 
-                    {% for studio in data.Media.studios.nodes %}
+                    {% for studio in  studios.nodes %}
                         <span class="tag">{{ studio.name }}{% unless forloop.last %}, {% endunless %}</span>
                     {% endfor %}
                 </div>
                 <div>
                     <span class="text--bold" style="font-size:24px;">Number of Episodes:</span>
-                    <span class="text--bold" style="font-size:24px;"> {{data.Media.episodes}}</span>
+                    <span class="text--bold" style="font-size:24px;"> {{ episodes }}</span>
                 </div>
             </div>
         </div>
