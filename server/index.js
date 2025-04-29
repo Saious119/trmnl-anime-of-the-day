@@ -83,10 +83,18 @@ async function fetchAnimeData(query, variables) {
   }
 }
 
+function isDifferentDay(date1, date2) {
+  return (
+    date1.getFullYear() !== date2.getFullYear() ||
+    date1.getMonth() !== date2.getMonth() ||
+    date1.getDate() !== date2.getDate()
+  );
+}
+
 app.get("/data", async (req, res) => {
   if (
     animeOfTheDay == null ||
-    new Date() - new Date(lastUpdated) > 24 * 60 * 60 * 1000
+    isDifferentDay(new Date(lastUpdated), new Date())
   ) {
     const randomYear = Math.floor(Math.random() * (2024 - 1962 + 1)) + 1962;
     const randomSeason = seasons[Math.floor(Math.random() * seasons.length)];
