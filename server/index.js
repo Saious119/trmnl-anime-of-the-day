@@ -52,6 +52,14 @@ var apiTries = 0; // Counter for API tries, we are limited to 30 a day
 var seasons = ["WINTER", "SPRING", "SUMMER", "FALL"];
 app.use(express.json()); // Middleware to parse JSON bodies
 
+function isDifferentDay(date1, date2) {
+  return (
+    date1.getFullYear() !== date2.getFullYear() ||
+    date1.getMonth() !== date2.getMonth() ||
+    date1.getDate() !== date2.getDate()
+  );
+}
+
 // Function to fetch data from AniList API
 async function fetchAnimeData(query, variables) {
   const url = "https://graphql.anilist.co";
@@ -82,14 +90,6 @@ async function fetchAnimeData(query, variables) {
     console.log("Fetch error:", error);
     throw error;
   }
-}
-
-function isDifferentDay(date1, date2) {
-  return (
-    date1.getFullYear() !== date2.getFullYear() ||
-    date1.getMonth() !== date2.getMonth() ||
-    date1.getDate() !== date2.getDate()
-  );
 }
 
 async function SelectRandomAnime(mediaArray) {
@@ -137,7 +137,7 @@ async function GetAllAnimePages(query, variables) {
 app.get("/data", async (req, res) => {
   if (
     animeOfTheDay == null ||
-    new Date() - new Date(lastUpdated) > 24 * 60 * 60 * 1000
+    isDifferentDay(new Date(lastUpdated), new Date())
   ) {
     const minRating = Math.floor(Math.pow(Math.random(), 3) * 100); // Random popularity value
     currentRating = 0;
