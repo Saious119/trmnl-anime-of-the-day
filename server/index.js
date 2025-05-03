@@ -84,6 +84,14 @@ async function fetchAnimeData(query, variables) {
   }
 }
 
+function isDifferentDay(date1, date2) {
+  return (
+    date1.getFullYear() !== date2.getFullYear() ||
+    date1.getMonth() !== date2.getMonth() ||
+    date1.getDate() !== date2.getDate()
+  );
+}
+
 async function SelectRandomAnime(mediaArray) {
   console.log("Media array length:", mediaArray.length); // Log the length of the media array
   const randomIndex = Math.floor(Math.random() * mediaArray.length);
