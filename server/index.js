@@ -47,6 +47,7 @@ var variables = {
 
 var animeOfTheDay = null; // Variable to store the selected anime of the day
 var lastUpdated = new Date().toISOString(); // Initialize lastUpdated with the current date and time
+var apiTries = 0; // Counter for API tries, we are limited to 30 a day
 
 var seasons = ["WINTER", "SPRING", "SUMMER", "FALL"];
 app.use(express.json()); // Middleware to parse JSON bodies
@@ -71,7 +72,7 @@ async function fetchAnimeData(query, variables) {
     const data = await response.json();
 
     if (response.ok) {
-      console.log("Data fetched successfully:"); // Log the fetched data
+      console.log("Data fetched successfully");
       return data; // Return the JSON response
     } else {
       console.log("Error fetching data:", data);
@@ -83,38 +84,76 @@ async function fetchAnimeData(query, variables) {
   }
 }
 
+async function SelectRandomAnime(mediaArray) {
+  console.log("Media array length:", mediaArray.length); // Log the length of the media array
+  const randomIndex = Math.floor(Math.random() * mediaArray.length);
+  console.log("Random index:", randomIndex); // Log the random index
+  return mediaArray[randomIndex];
+}
+
+async function GetAllAnimePages(query, variables) {
+  var randomYear = Math.floor(
+    1962 + Math.pow(Math.random(), 3) * (2024 - 1962 + 1)
+  );
+  var randomSeason = seasons[Math.floor(Math.random() * seasons.length)];
+  variables.seasonYear = randomYear;
+  variables.season = randomSeason;
+  console.log("Query variables:", variables);
+  var result = await fetchAnimeData(query, variables); // Use the new function
+  while (result.data.Page.media.length == 0 && apiTries < 15) {
+    apiTries++; // Increment the API tries counter
+    console.log("No media found, trying again...");
+    variables.page = 1; // Reset page to 1 for each new request
+    randomYear = Math.floor(
+      1962 + Math.pow(Math.random(), 3) * (2024 - 1962 + 1)
+    );
+    randomSeason = seasons[Math.floor(Math.random() * seasons.length)];
+    variables.seasonYear = randomYear;
+    variables.season = randomSeason;
+
+    result = await fetchAnimeData(query, variables); // Retry fetching data if no media found
+    console.log(result.data.Page.media.length); // Log the length of the media array
+  }
+  if (result.data.Page.pageInfo.hasNextPage) {
+    console.log("Fetching additional pages...");
+    while (result.data.Page.pageInfo.hasNextPage) {
+      variables.page += 1; // Increment the page number
+      const nextPageResult = await fetchAnimeData(query, variables); // Fetch the next page
+      result.data.Page.media.push(...nextPageResult.data.Page.media); // Append the new media to the existing array
+      result.data.Page.pageInfo = nextPageResult.data.Page.pageInfo; // Update pageInfo with the new data
+    }
+  }
+  return result; // Return the complete result with all pages
+}
+
 app.get("/data", async (req, res) => {
   if (
     animeOfTheDay == null ||
     new Date() - new Date(lastUpdated) > 24 * 60 * 60 * 1000
   ) {
-    const randomYear = Math.floor(Math.random() * (2024 - 1962 + 1)) + 1962;
-    const randomSeason = seasons[Math.floor(Math.random() * seasons.length)];
+    const minRating = Math.floor(Math.pow(Math.random(), 3) * 100); // Random popularity value
+    currentRating = 0;
+    console.log("Minimum Rating: ", minRating);
 
-    variables.seasonYear = randomYear;
-    variables.season = randomSeason;
+    apiTries = 0; //we are in a new day, reset the tries
+    var englishName = null; // Reset the English name to make sure we get one
     variables.page = 1; // Reset page to 1 for each new request
 
-    console.log("Query variables:", variables);
-
     try {
-      const result = await fetchAnimeData(query, variables); // Use the new function
-      if (result.data.Page.pageInfo.hasNextPage) {
-        console.log("Fetching additional pages...");
-        while (result.data.Page.pageInfo.hasNextPage) {
-          variables.page += 1; // Increment the page number
-          const nextPageResult = await fetchAnimeData(query, variables); // Fetch the next page
-          result.data.Page.media.push(...nextPageResult.data.Page.media); // Append the new media to the existing array
-          result.data.Page.pageInfo = nextPageResult.data.Page.pageInfo; // Update pageInfo with the new data
-        }
+      while (
+        (currentRating < minRating || englishName == null) &&
+        apiTries < 15
+      ) {
+        const result = await GetAllAnimePages(query, variables); // Fetch all pages of anime data
+        animeOfTheDay = await SelectRandomAnime(result.data.Page.media); // Select a random anime from the result
+        console.log("Selected anime:", animeOfTheDay); // Log the selected anime
+        currentRating = animeOfTheDay.averageScore;
+        englishName = animeOfTheDay.title.english; // Get the English name of the selected anime
+        console.log("Selected anime score:", currentRating); // Log the selected anime
+        console.log("Selected anime name:", englishName); // Log the selected anime name
+        apiTries++; // Increment the API tries counter
       }
-      // Select a random media entry from the result
-      const mediaArray = result.data.Page.media;
-      const randomMedia =
-        mediaArray[Math.floor(Math.random() * mediaArray.length)];
-      animeOfTheDay = randomMedia; // Store the selected media in a variable
-      console.log(randomMedia); // Log the selected anime
-      res.json(randomMedia); // Send the result back to the client
+      res.json(animeOfTheDay); // Send the result back to the client
     } catch (error) {
       res.status(500).json({ error: "An error occurred" });
     }
