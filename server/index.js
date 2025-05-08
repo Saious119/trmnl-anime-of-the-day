@@ -101,7 +101,7 @@ async function SelectRandomAnime(mediaArray) {
 
 async function GetAllAnimePages(query, variables) {
   var randomYear = Math.floor(
-    1962 + Math.pow(Math.random(), 3) * (2024 - 1962 + 1)
+    1962 + Math.pow(Math.random(), 0.48) * (2024 - 1962 + 1)
   );
   var randomSeason = seasons[Math.floor(Math.random() * seasons.length)];
   variables.seasonYear = randomYear;
@@ -113,7 +113,7 @@ async function GetAllAnimePages(query, variables) {
     console.log("No media found, trying again...");
     variables.page = 1; // Reset page to 1 for each new request
     randomYear = Math.floor(
-      1962 + Math.pow(Math.random(), 3) * (2024 - 1962 + 1)
+      1962 + Math.pow(Math.random(), 0.48) * (2024 - 1962 + 1)
     );
     randomSeason = seasons[Math.floor(Math.random() * seasons.length)];
     variables.seasonYear = randomYear;
@@ -139,7 +139,7 @@ app.get("/data", async (req, res) => {
     animeOfTheDay == null ||
     isDifferentDay(new Date(lastUpdated), new Date())
   ) {
-    const minRating = Math.floor(Math.pow(Math.random(), 3) * 100); // Random popularity value
+    const minRating = Math.floor(Math.pow(Math.random(), 0.44) * 100); // Random popularity value
     currentRating = 0;
     console.log("Minimum Rating: ", minRating);
 
