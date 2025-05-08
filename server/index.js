@@ -139,7 +139,7 @@ app.get("/data", async (req, res) => {
     animeOfTheDay == null ||
     isDifferentDay(new Date(lastUpdated), new Date())
   ) {
-    const minRating = Math.floor(Math.pow(Math.random(), 0.44) * 100); // Random popularity value
+    const minRating = Math.floor(Math.pow(Math.random(), 0.44) * 90); // Random popularity value
     currentRating = 0;
     console.log("Minimum Rating: ", minRating);
 
