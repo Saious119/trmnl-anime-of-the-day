@@ -93,9 +93,7 @@ async function fetchAnimeData(query, variables) {
 }
 
 async function SelectRandomAnime(mediaArray) {
-  console.log("Media array length:", mediaArray.length); // Log the length of the media array
   const randomIndex = Math.floor(Math.random() * mediaArray.length);
-  console.log("Random index:", randomIndex); // Log the random index
   return mediaArray[randomIndex];
 }
 
@@ -106,7 +104,6 @@ async function GetAllAnimePages(query, variables) {
   var randomSeason = seasons[Math.floor(Math.random() * seasons.length)];
   variables.seasonYear = randomYear;
   variables.season = randomSeason;
-  console.log("Query variables:", variables);
   var result = await fetchAnimeData(query, variables); // Use the new function
   while (result.data.Page.media.length == 0 && apiTries < 15) {
     apiTries++; // Increment the API tries counter
@@ -120,7 +117,6 @@ async function GetAllAnimePages(query, variables) {
     variables.season = randomSeason;
 
     result = await fetchAnimeData(query, variables); // Retry fetching data if no media found
-    console.log(result.data.Page.media.length); // Log the length of the media array
   }
   if (result.data.Page.pageInfo.hasNextPage) {
     console.log("Fetching additional pages...");
@@ -154,13 +150,11 @@ app.get("/data", async (req, res) => {
       ) {
         const result = await GetAllAnimePages(query, variables); // Fetch all pages of anime data
         animeOfTheDay = await SelectRandomAnime(result.data.Page.media); // Select a random anime from the result
-        console.log("Selected anime:", animeOfTheDay); // Log the selected anime
         currentRating = animeOfTheDay.averageScore;
         englishName = animeOfTheDay.title.english; // Get the English name of the selected anime
-        console.log("Selected anime score:", currentRating); // Log the selected anime
-        console.log("Selected anime name:", englishName); // Log the selected anime name
         apiTries++; // Increment the API tries counter
       }
+      console.log("Selected anime:", animeOfTheDay); // Log the selected anime
       res.json(animeOfTheDay); // Send the result back to the client
     } catch (error) {
       res.status(500).json({ error: "An error occurred" });
