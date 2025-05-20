@@ -1,5 +1,7 @@
 # trmnl-anime-of-the-day
 
+<img src="docs/trmnl-badge-compatible-with-dark.svg" alt="TRMNL" width="200"/>
+
 ![Screenshot](docs/fullscreen_preview.png)
 
 A Plugin for the TRMNL device that gives you a random anime of the day using the public Anilist API
