@@ -135,6 +135,10 @@ app.get("/data", async (req, res) => {
     animeOfTheDay == null ||
     isDifferentDay(new Date(lastUpdated), new Date())
   ) {
+    console.log("Fetching new anime of the day");
+    console.log("Last updated: ", lastUpdated);
+    console.log("Current date: ", new Date());
+    console.log(JSON.stringify(animeOfTheDay));
     const minRating = Math.floor(Math.pow(Math.random(), 0.44) * 90); // Random popularity value
     currentRating = 0;
     console.log("Minimum Rating: ", minRating);
