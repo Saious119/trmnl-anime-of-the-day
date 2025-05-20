@@ -172,41 +172,56 @@ app.get("/data", async (req, res) => {
 app.get("/test", async (req, res) => {
   console.log("Test endpoint hit");
   const testJson = {
-    data: {
-      Media: {
-        averageScore: 50,
-        coverImage: {
-          medium:
-            "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx98515-sSZiUx4VI0KH.png",
-        },
-        episodes: 12,
-        endDate: {
-          year: 2020,
-          month: 6,
-        },
-        genres: ["Comedy", "Romance", "Supernatural"],
-        startDate: {
-          year: 2020,
-          month: 1,
-        },
-        studios: {
-          nodes: [
-            { name: "Children's Playground Entertainment" },
-            { name: "Bandai Namco Arts" },
-            { name: "bilibili" },
-            { name: "Funimation" },
-            { name: "Shueisha" },
-          ],
-        },
-        title: {
-          english: "Hatena Illusion",
-          native: "はてな☆イリュージョン",
-          romaji: "Hatena☆Illusion",
-        },
-        description:
-          "The series centers on Makoto Shiranui, a boy who travels to Tokyo seeking to become the apprentice of Mamoru Hoshisato, a world-famous magician and friend of his parents. Ever since he had watched a show by Mamoru and his wife Maive, he had dreamed of being a magician. Their daughter Kana (nicknamed Hatena) has been Makoto's friend since childhood. Even though Tokyo has had a rash of burglaries by a beautiful woman thief, Makoto can rest easy as long as Hatena is there. When he arrives at the Hoshisato residence, a haunted mansion, the family butler Jeeves and the maid Emma greet him, and he is reunited with Hatena, only to find out that they don't really get along now.<br><br>\n\n(Source: Anime News Network)",
-      },
+    averageScore: 83,
+    coverImage: {
+      extraLarge:
+        "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx30-AI1zr74Dh4ye.jpg",
     },
+    episodes: 26,
+    endDate: {
+      year: 1996,
+      month: 3,
+    },
+    genres: ["Action", "Drama", "Mecha", "Mystery", "Psychological", "Sci-Fi"],
+    startDate: {
+      year: 1995,
+      month: 10,
+    },
+    studios: {
+      nodes: [
+        {
+          name: "Gainax",
+        },
+        {
+          name: "TV Tokyo",
+        },
+        {
+          name: "ADV Films",
+        },
+        {
+          name: "Kadokawa Shoten",
+        },
+        {
+          name: "NAS",
+        },
+        {
+          name: "Tatsunoko Production",
+        },
+        {
+          name: "GKIDS",
+        },
+        {
+          name: "Madman Entertainment",
+        },
+      ],
+    },
+    title: {
+      english: "Neon Genesis Evangelion",
+      native: "新世紀エヴァンゲリオン",
+      romaji: "Shin Seiki Evangelion",
+    },
+    description:
+      "In the year 2015, the Angels, huge, tremendously powerful, alien war machines, appear in Tokyo for the second time. The only hope for Mankind's survival lies in the Evangelion, a humanoid fighting machine developed by NERV, a special United Nations agency. Capable of withstanding anything the Angels can dish out, the Evangelion's one drawback lies in the limited number of people able to pilot them. Only a handful of teenagers, all born fourteen years ago, nine months after the Angels first appeared, are able to interface with the Evangelion. One such teenager is Shinji Ikari, whose father heads the NERV team that developed and maintains the Evangelion. Thrust into a maelstrom of battle and events that he does not understand, Shinji is forced to plumb the depths of his own inner resources for the courage and strength to not only fight, but to survive, or risk losing everything. <br><br>\n(Source: AniDB)<br>\n<br>\n <i>Note: Later releases include edited versions of Episodes 21-24 called the \"Director's Cut\" with some visual editing and adding extra scenes that appeared in the theatrical recap 'Death'.</i>",
   };
 
   res.json(testJson); // Send the JSON object as the response

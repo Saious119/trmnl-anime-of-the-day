@@ -4,7 +4,7 @@ no_screen_padding: "no"
 dark_mode: "no"
 static_data: ""
 polling_verb: get
-polling_url: "https://trmnl-marvel-comic-tracker.onrender.com/data"
+polling_url: "https://trmnl-anime-of-the-day.onrender.com/data"
 polling_headers: ""
 name: Anime of the Day
 refresh_interval: 15
