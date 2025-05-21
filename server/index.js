@@ -120,7 +120,8 @@ async function GetAllAnimePages(query, variables) {
   }
   if (result.data.Page.pageInfo.hasNextPage) {
     console.log("Fetching additional pages...");
-    while (result.data.Page.pageInfo.hasNextPage) {
+    while (result.data.Page.pageInfo.hasNextPage && apiTries < 15) {
+      apiTries++; // Increment the API tries counter
       variables.page += 1; // Increment the page number
       const nextPageResult = await fetchAnimeData(query, variables); // Fetch the next page
       result.data.Page.media.push(...nextPageResult.data.Page.media); // Append the new media to the existing array
@@ -139,6 +140,7 @@ app.get("/data", async (req, res) => {
     console.log("Last updated: ", lastUpdated);
     console.log("Current date: ", new Date());
     console.log(JSON.stringify(animeOfTheDay));
+    lastUpdated = new Date().toISOString(); // Update lastUpdated to the current date and time
     const minRating = Math.floor(Math.pow(Math.random(), 0.44) * 90); // Random popularity value
     currentRating = 0;
     console.log("Minimum Rating: ", minRating);
