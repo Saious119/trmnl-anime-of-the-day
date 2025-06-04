@@ -167,6 +167,8 @@ app.get("/data", async (req, res) => {
     }
   } else {
     console.log("Returning cached anime of the day");
+    console.log("Last updated: ", lastUpdated);
+    console.log("Current date: ", new Date());
     res.json(animeOfTheDay); // Return the cached anime of the day
   }
 });
