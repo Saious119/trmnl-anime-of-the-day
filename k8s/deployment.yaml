@@ -17,6 +17,10 @@ spec:
       labels:
         app: trmnl-anime-of-the-day
     spec:
+      # Pin to the node that runs the local registry — the image is referenced as
+      # localhost:5000, which only resolves on the node hosting the registry container.
+      nodeSelector:
+        kubernetes.io/hostname: sixtrash
       containers:
         - name: trmnl-anime-of-the-day
           image: localhost:5000/trmnl-anime-of-the-day:latest
