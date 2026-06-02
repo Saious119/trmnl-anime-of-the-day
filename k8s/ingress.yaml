@@ -7,6 +7,7 @@ metadata:
   # annotations:
   #   cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
+  ingressClassName: traefik
   rules:
     - host: trmnl-anime-of-the-day.sixtrash.com
       http:
