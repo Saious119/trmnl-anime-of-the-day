@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: trmnl-anime-of-the-day
+  # Uncomment if you use cert-manager for TLS:
+  # annotations:
+  #   cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  rules:
+    - host: trmnl-anime-of-the-day.sixtrash.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: trmnl-anime-of-the-day
+                port:
+                  number: 80
+  # Uncomment if you use cert-manager for TLS:
+  # tls:
+  #   - hosts:
+  #       - anime.yourdomain.com
+  #     secretName: trmnl-anime-of-the-day-tls

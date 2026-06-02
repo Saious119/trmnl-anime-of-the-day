@@ -1,0 +1,12 @@
+node_modules
+server/node_modules
+.git
+docs
+views
+bin
+Gemfile
+Gemfile.lock
+*.md
+config.toml
+settings.yml
+k8s

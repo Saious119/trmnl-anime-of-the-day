@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trmnl-anime-of-the-day
+  labels:
+    app: trmnl-anime-of-the-day
+spec:
+  # Keep at 1 replica — the daily anime cache is in-memory, multiple replicas
+  # would cause each pod to independently re-fetch and potentially show different anime.
+  replicas: 1
+  selector:
+    matchLabels:
+      app: trmnl-anime-of-the-day
+  template:
+    metadata:
+      labels:
+        app: trmnl-anime-of-the-day
+    spec:
+      containers:
+        - name: trmnl-anime-of-the-day
+          image: localhost:5000/trmnl-anime-of-the-day:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "50m"
+            limits:
+              memory: "128Mi"
+              cpu: "200m"
+          livenessProbe:
+            httpGet:
+              path: /test
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /test
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 10
