@@ -19,8 +19,8 @@ spec:
     spec:
       containers:
         - name: trmnl-anime-of-the-day
-          image: 192.168.1.178:5000/trmnl-anime-of-the-day:latest
-          imagePullPolicy: IfNotPresent
+          image: localhost:5000/trmnl-anime-of-the-day:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 3000
           resources:
