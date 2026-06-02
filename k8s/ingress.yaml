@@ -2,6 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: trmnl-anime-of-the-day
+  namespace: trmnl
   # Uncomment if you use cert-manager for TLS:
   # annotations:
   #   cert-manager.io/cluster-issuer: letsencrypt-prod
