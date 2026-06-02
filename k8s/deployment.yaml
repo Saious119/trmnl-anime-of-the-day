@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: trmnl-anime-of-the-day
+  namespace: trmnl
   labels:
     app: trmnl-anime-of-the-day
 spec:
