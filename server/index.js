@@ -173,7 +173,7 @@ app.get("/data", async (req, res) => {
   }
 });
 
-app.get("/test", async (req, res) => {
+app.get("/testing", async (req, res) => {
   console.log("Test endpoint hit");
   const testJson = {
     averageScore: 83,

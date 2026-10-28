@@ -36,14 +36,14 @@ spec:
               cpu: "200m"
           livenessProbe:
             httpGet:
-              path: /test
+              path: /testing
               port: 3000
             initialDelaySeconds: 10
-            periodSeconds: 30
+            periodSeconds: 60
           readinessProbe:
             httpGet:
-              path: /test
+              path: /testing
               port: 3000
             initialDelaySeconds: 5
-            periodSeconds: 10
+            periodSeconds: 60
       restartPolicy: Always
